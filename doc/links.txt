@@ -1,0 +1,8 @@
+#Exemplo
+https://blog.autsoft.hu/defining-custom-metrics-in-a-spring-boot-application-using-micrometer/
+
+#docs
+http://micrometer.io/docs/concepts
+
+#problema do timed
+https://stackoverflow.com/questions/63230291/how-to-resolve-java-lang-classnotfoundexception-org-aspectj-lang-proceedingjoin

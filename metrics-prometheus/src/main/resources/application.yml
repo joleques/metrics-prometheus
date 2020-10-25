@@ -1,0 +1,33 @@
+version: 1.17.0
+
+
+server:
+  servlet:
+    contextPath: /
+  port: 8080
+
+spring:
+  profiles:
+    active: "metrics-prometheus"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    env:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true
