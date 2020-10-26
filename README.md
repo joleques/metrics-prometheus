@@ -19,7 +19,7 @@ As métricas podem ser vicualizadas do Prometheus e Grafana.
 
 O Exemplo simula a coleta de algumas métricas em uma aplicação Spring Boot.
 
-** Counter **
+**Counter**
 O Counter pode ser visualizado utilizando as rotas abaixo:
 
 * Error: http://localhost:8080/teste-metric/error
@@ -28,5 +28,14 @@ O Counter pode ser visualizado utilizando as rotas abaixo:
 
 * Pending: http://localhost:8080/teste-metric/pending
 
+***Log do Serviço***
 ![Log](./doc/images/log.jpeg)
+***Log do Prometheus***
 ![Prometheus](./doc/images/log_prometheus.jpeg)
+
+# Infra:
+Para subir o Prometheus e o Grafana basta executar o comando abaixo no diretório infra.
+
+```
+docker-compose up -d
+```
