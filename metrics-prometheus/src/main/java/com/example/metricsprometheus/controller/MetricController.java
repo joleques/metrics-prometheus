@@ -1,19 +1,11 @@
 package com.example.metricsprometheus.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.metricsprometheus.services.MetricService;
-
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Tags;
 
 
 @RestController
@@ -21,43 +13,30 @@ import io.micrometer.core.instrument.Tags;
 public class MetricController {
 
 	@Autowired
-	private Counter counterOne;
-	
-	@Autowired
-	private Counter counterTwo;
-	
-	@Autowired
 	private MetricService service;
 	
-	@Autowired
-	private MeterRegistry registry;
-	
-	@GetMapping("/")
-	public String getTest() {
-		counterOne.increment();
-		return "Teste de um get incrementando no primeiro contador";
-	}	
-
-	@GetMapping("/teste_2")
-	public String getTest2() {
-		counterTwo.increment();
-		return "Teste de um get incrementando no segundo contador";
+	@PostMapping("/error")
+	public String counterError() {
+		String status = "ERROR";
+		int delay = 1;
+		service.incrementStatus(status, delay);
+		return String.format("Teste do contador de erros iniciado com delay de %ds a cada 5 incrementos, durando %d segundos", delay, delay * 100);
 	}
-
-	@GetMapping("/teste_2/{tipo}")
-	public String getTest3(@PathVariable String tipo) {
-		Tags tags = Tags.of("tipo",tipo);
-		registry.counter("teste_get_1", tags).increment();
-		return "Teste de um get incrementando no primeiro contador";
-	}	
 	
-	@PostMapping("/save")
-	public String save() {
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return service.save("tempo para salvar.....");
+	@PostMapping("/success")
+	public String counterSuccess() {
+		String status = "SUCCESS";
+		int delay = 2;
+		service.incrementStatus(status, delay);
+		return String.format("Teste do contador de erros iniciado com delay de %ds a cada 5 incrementos, durando %d segundos", delay, delay * 100);
 	}
+	
+	@PostMapping("/pending")
+	public String counterPending() {
+		String status = "PENDING";
+		int delay = 3;
+		service.incrementStatus(status, delay);
+		return String.format("Teste do contador de erros iniciado com delay de %ds a cada 5 incrementos, durando %d segundos", delay, delay * 100);
+	}
+	
 }

@@ -3,7 +3,6 @@ package com.example.metricsprometheus.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 
@@ -11,25 +10,26 @@ import io.micrometer.core.instrument.MeterRegistry;
 public class MetricConfiguration {
 	
 	
-	@Bean(name = "counterOne")
+	@Bean(name = "typeMensage")
 	public Counter createCounterOne(MeterRegistry meterRegistry) {
-		return Counter.builder("teste.get_1")
+		return Counter.builder("tipo.mensagem")
 				.tag("tipo", "sms")
 				.tag("tipo", "email")
-				.tag("tipo", "callback")
-				.description("teste do primeiro get")
+				.tag("tipo", "push")
+				.description("Tipo de envio de mensagem")
 				.register(meterRegistry);
 	}
 	
 
-	@Bean(name = "counterTwo")
+	@Bean(name = "statusService")
 	public Counter createCounterTwo(MeterRegistry meterRegistry) {
-		return Counter.builder("teste.get_2").tag("tipo", "get_2").description("teste do segundo get").register(meterRegistry);
+		return Counter.builder("status.service")
+				.tag("status", "ERROR")
+				.tag("status", "SUCCESS")
+				.tag("status", "PENDING")
+				.description("Status do Serviço")
+				.register(meterRegistry);
 	}
 	
-	/*
-	 * @Bean public TimedAspect timedAspect(MeterRegistry registry) { return new
-	 * TimedAspect(registry); }
-	 */
 	
 }
